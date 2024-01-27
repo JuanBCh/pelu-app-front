@@ -1,6 +1,5 @@
 import Search from "@/ui/search";
 import Table from "@/ui/table";
-import { CreateClient } from "@/ui/buttons";
 
 export default function Home({ searchParams }) {
   const query = searchParams.query || "";

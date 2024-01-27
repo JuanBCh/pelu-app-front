@@ -10,13 +10,12 @@ export default function Search({ placeholder }) {
   const router = useRouter();
   const styles = {
     section: "w-full pr-2 my-6",
-    topDiv: "h-9 flex justify-between items-center",
+    topDiv: "mb-3 h-9 flex justify-between items-center",
     label: "text-xl font-semibold",
     search: "w-full h-16 text-xl border-2 border-slate-500 p-2",
   };
 
   const handleSearch = useDebouncedCallback((term) => {
-    console.log("Searching...", term);
     const params = new URLSearchParams(searchParams);
     params.set("page", "1");
     if (term) {
