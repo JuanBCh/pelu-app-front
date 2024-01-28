@@ -3,7 +3,7 @@ export const addClient = async (data) => {
     return "El nombre y apellido son obligatorios";
   }
 
-  const res = await fetch("http://localhost:8080/addClient", {
+  const res = await fetch("https://pelu-app-api-alpha.vercel.app/addClient", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -26,14 +26,17 @@ export const editClient = async (data) => {
     return "Tienes que editar al menos un campo";
   }
 
-  const res = await fetch(`http://localhost:8080/updateClient/${data.id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      accept: "application/json",
-    },
-    body: JSON.stringify(data),
-  });
+  const res = await fetch(
+    `https://pelu-app-api-alpha.vercel.app/updateClient/${data.id}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  );
 
   return res;
 };
@@ -74,26 +77,32 @@ export const createTreatment = async (data) => {
   if (!data.date || !data.description) {
     return "La fecha y descripción son obligatorios";
   }
-  const res = await fetch("http://localhost:8080/addTreatment", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      accept: "application/json",
-    },
-    body: JSON.stringify(data),
-  });
+  const res = await fetch(
+    "https://pelu-app-api-alpha.vercel.app/addTreatment",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify(data),
+    }
+  );
 
   return res;
 };
 
 export const deleteTreatment = async (id) => {
-  const res = await fetch(`http://localhost:8080/deleteTreatment/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      accept: "application/json",
-    },
-  });
+  const res = await fetch(
+    `https://pelu-app-api-alpha.vercel.app/deleteTreatment/${id}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+    }
+  );
 
   return res;
 };
