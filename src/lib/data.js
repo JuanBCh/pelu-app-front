@@ -10,7 +10,9 @@ export async function fetchClients(query, currentPage) {
 }
 
 export async function fetchOneClient(id) {
-  const res = await fetch(`http://localhost:8080/client/${id}`);
+  const res = await fetch(`http://localhost:8080/client/${id}`, {
+    cache: "no-cache",
+  });
   return res.json();
 }
 

@@ -1,5 +1,6 @@
 import { fetchOneClient } from "@/lib/data";
 import ClientData from "@/ui/ClientPage/data";
+import EditClient from "@/ui/ClientPage/editClient";
 import NewTreatment from "@/ui/ClientPage/newTreatmten";
 import ClientTreatments from "@/ui/ClientPage/treatments";
 
@@ -8,14 +9,18 @@ export default async function Client({ params }) {
   const client = await fetchOneClient(id);
   const styles = {
     main: "px-4 py-12",
-    h1: "text-3xl font-bold text-center",
+    topDiv: "flex justify-between items-center",
+    h1: "text-3xl font-bold text-start",
   };
 
   return (
     <main className={styles.main}>
-      <h1 className={styles.h1}>
-        {client.name} {client.lastname}
-      </h1>
+      <div className={styles.topDiv}>
+        <h1 className={styles.h1}>
+          {client.name} {client.lastname}
+        </h1>
+        <EditClient client={client} />
+      </div>
       <ClientData client={client} />
       <NewTreatment clientId={id} />
       <ClientTreatments clientId={id} />

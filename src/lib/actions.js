@@ -15,7 +15,31 @@ export const addClient = async (data) => {
   return res;
 };
 
+export const editClient = async (data) => {
+  if (
+    !data.name &&
+    !data.lastname &&
+    !data.phone &&
+    !data.mail &&
+    !data.birth
+  ) {
+    return "Tienes que editar al menos un campo";
+  }
+
+  const res = await fetch(`http://localhost:8080/updateClient/${data.id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      accept: "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  return res;
+};
+
 export const transformToBirthDate = (date) => {
+  if (!date) return;
   const monthsToSpanish = {
     "01": "Enero",
     "02": "Febrero",
@@ -38,6 +62,7 @@ export const transformToBirthDate = (date) => {
 };
 
 export const transformToDate = (date) => {
+  if (!date) return;
   const day = date.split("-")[2].split("T")[0];
   const month = date.split("-")[1];
   const year = date.split("-")[0];

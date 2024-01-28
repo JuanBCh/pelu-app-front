@@ -26,7 +26,7 @@ export default function DeleteTreatment({ treatmentId, date }) {
       <FontAwesomeIcon
         icon={faTrash}
         className={styles.delete}
-        onClick={() => setModal(!modal)}
+        onClick={() => setModal(true)}
       />
       {modal && (
         <DeleteTreatmentModal
