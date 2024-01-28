@@ -13,3 +13,10 @@ export async function fetchOneClient(id) {
   const res = await fetch(`http://localhost:8080/client/${id}`);
   return res.json();
 }
+
+export async function fetchTreatments(id) {
+  const res = await fetch(`http://localhost:8080/clientTreatments/${id}`, {
+    cache: "no-cache",
+  });
+  return res.json();
+}

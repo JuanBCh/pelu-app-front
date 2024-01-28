@@ -33,5 +33,30 @@ export const transformToBirthDate = (date) => {
   const day = date.split("-")[2].split("T")[0];
   const month = monthsToSpanish[date.split("-")[1]];
   const year = date.split("-")[0];
+
   return day + " de " + month + ` (${year})`;
+};
+
+export const transformToDate = (date) => {
+  const day = date.split("-")[2].split("T")[0];
+  const month = date.split("-")[1];
+  const year = date.split("-")[0];
+
+  return day + "/" + month + "/" + year;
+};
+
+export const createTreatment = async (data) => {
+  if (!data.date || !data.description) {
+    return "La fecha y descripción son obligatorios";
+  }
+  const res = await fetch("http://localhost:8080/addTreatment", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      accept: "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  return res;
 };

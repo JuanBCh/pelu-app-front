@@ -19,7 +19,7 @@ export default function NewClientPage() {
     main: "flex flex-col items-center justify-center",
     title: "mt-16 text-center text-3xl font-bold",
     button:
-      "border-black border-2 rounded-md py-3 px-6 bg-blue-500 text-white text-4xl hover:font-semibold",
+      "border-black rounded-md py-3 px-6 bg-blue-500 text-white text-4xl hover:bg-blue-600",
   };
 
   const sendClient = async (e) => {
