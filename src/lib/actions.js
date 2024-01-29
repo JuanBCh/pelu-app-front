@@ -41,6 +41,18 @@ export const editClient = async (data) => {
   return res;
 };
 
+export const deleteClient = async (id) => {
+  const res = await fetch(`http://localhost:8080/deleteClient/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      accept: "application/json",
+    },
+  });
+
+  return res;
+};
+
 export const transformToBirthDate = (date) => {
   if (!date) return;
   const monthsToSpanish = {

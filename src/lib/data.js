@@ -1,3 +1,14 @@
+export const navData = [
+  {
+    title: "Inicio",
+    path: "/",
+  },
+  {
+    title: "Nuevo Cliente",
+    path: "/newClient",
+  },
+];
+
 export async function fetchClients(query, currentPage) {
   const itemsPerPage = 10;
   const offset = (currentPage - 1) * itemsPerPage;

@@ -25,11 +25,13 @@ export default function NewClientPage() {
   const sendClient = async (e) => {
     e.preventDefault();
     const res = await addClient(data);
+    console.log(res);
     if (res.status === 201) {
       alert("Cliente creado con éxito");
       router.push("/");
+      router.refresh();
     } else {
-      alert("Error al crear el cliente");
+      alert(res);
     }
   };
 

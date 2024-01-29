@@ -1,16 +1,25 @@
 "use client";
 
+import { faBars, faHouse } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
+import NavMenu from "./navMenu";
 
 export default function NavBar() {
   const router = useRouter();
   const styles = {
-    section: "flex justify-between",
+    section: "flex justify-between p-2",
+    icons:
+      "font-bold text-blue-600 size-10 hover:text-blue-700 hover:cursor-pointer",
   };
   return (
-    <section className={styles.section}>
-      <div>Logo</div>
-      <nav onClick={() => router.push("/")}>Inicio</nav>
-    </section>
+    <nav className={styles.section}>
+      <FontAwesomeIcon
+        icon={faHouse}
+        className={styles.icons}
+        onClick={() => router.push("/")}
+      />
+      <NavMenu />
+    </nav>
   );
 }

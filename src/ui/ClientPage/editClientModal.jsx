@@ -1,7 +1,8 @@
 "use client";
 
-import { editClient } from "@/lib/actions";
+import { deleteClient, editClient } from "@/lib/actions";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
+import { faArrowLeft, faUserSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -16,19 +17,21 @@ export default function EditClientModal({ setModal, client }) {
     mail: "",
     birth: "",
   });
+  const [del, setDel] = useState(false);
   const styles = {
     background:
       "flex items-center w-screen h-screen bg-blue-500/50 absolute top-0 left-0 z-10",
     modal:
       "flex flex-col justify-around mx-auto p-4 w-11/12 h-auto rounded-lg bg-slate-100 z-20 ",
-    close:
-      "self-end text-red-600 size-9 hover:text-white hover:bg-red-600 hover:cursor-pointer rounded-full",
+    topDiv: "w-full flex justify-between items-center",
+    icons: "text-red-600 size-9 hover:cursor-pointer rounded-full",
     title: "mt-6 text-3xl font-semibold text-center text-slate-900",
     form: "flex flex-col h-full py-4 mt-9",
     subtitle: "text-xl",
     div: "flex justify-between items-center mb-9",
     input: "w-3/5 p-4 rounded-md border border-gray-300 text-end",
     send: "my-auto block w-full px-4 py-4 text-xl text-white bg-blue-500 rounded-md hover:bg-blue-600",
+    delete: "bg-red-600 hover:bg-red-700 text-white",
   };
 
   const manageData = (e) => {
@@ -37,22 +40,46 @@ export default function EditClientModal({ setModal, client }) {
 
   const sendData = async (e) => {
     e.preventDefault();
-    const res = await editClient(data);
-    if (res.status === 202) {
-      router.refresh();
-      setModal(false);
+    if (!del) {
+      const res = await editClient(data);
+      if (res.status === 202) {
+        router.refresh();
+        setModal(false);
+      } else {
+        console.log(res);
+      }
     } else {
-      console.log(res);
+      const res = await deleteClient(data.id);
+      if (res.status === 200) {
+        router.push("/");
+      } else {
+        console.log(res);
+      }
     }
   };
   return (
     <main className={styles.background}>
       <section className={styles.modal}>
-        <FontAwesomeIcon
-          icon={faCircleXmark}
-          className={styles.close}
-          onClick={() => setModal(false)}
-        />
+        <div className={styles.topDiv}>
+          {!del ? (
+            <FontAwesomeIcon
+              icon={faUserSlash}
+              className={styles.icons}
+              onClick={() => setDel(!del)}
+            />
+          ) : (
+            <FontAwesomeIcon
+              icon={faArrowLeft}
+              className={styles.icons}
+              onClick={() => setDel(!del)}
+            />
+          )}
+          <FontAwesomeIcon
+            icon={faCircleXmark}
+            className={styles.icons}
+            onClick={() => setModal(false)}
+          />
+        </div>
         <h2 className={styles.title}>Editar perfil de {client.name}</h2>
         <form className={styles.form} onSubmit={(e) => sendData(e)}>
           <div className={styles.div}>
@@ -120,8 +147,11 @@ export default function EditClientModal({ setModal, client }) {
               name="birth"
             />
           </div>
-          <button className={styles.send} type="submit">
-            Aceptar
+          <button
+            className={`${styles.send} ${del && styles.delete}`}
+            type="submit"
+          >
+            {!del ? "Aceptar" : "Borrar"}
           </button>
         </form>
       </section>
