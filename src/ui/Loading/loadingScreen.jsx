@@ -1,8 +1,8 @@
-export default function Loading() {
+export default function LoadingScreen() {
   return (
     <div
       role="status"
-      className="w-full h-full flex justify-center items-center"
+      className="w-full h-screen flex flex-col justify-center items-center"
     >
       <svg
         aria-hidden="true"
@@ -20,7 +20,7 @@ export default function Loading() {
           fill="currentFill"
         />
       </svg>
-      <span class="sr-only">Loading...</span>
+      <span className="text-lg mt-2">Cargando...</span>
     </div>
   );
 }

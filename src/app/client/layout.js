@@ -1,6 +1,6 @@
-import Loading from "@/ui/Loading/loading";
+import LoadingScreen from "@/ui/Loading/loadingScreen";
 import { Suspense } from "react";
 
 export default function ClientLayout({ children }) {
-  return <Suspense fallback={<Loading />}>{children}</Suspense>;
+  return <Suspense fallback={<LoadingScreen />}>{children}</Suspense>;
 }

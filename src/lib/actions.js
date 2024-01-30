@@ -42,13 +42,16 @@ export const editClient = async (data) => {
 };
 
 export const deleteClient = async (id) => {
-  const res = await fetch(`http://localhost:8080/deleteClient/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      accept: "application/json",
-    },
-  });
+  const res = await fetch(
+    `https://pelu-app-api-alpha.vercel.app/deleteClient/${id}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+    }
+  );
 
   return res;
 };
