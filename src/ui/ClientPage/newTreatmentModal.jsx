@@ -5,9 +5,12 @@ import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Loading from "../Loading/loading";
 
 export default function NewTreatmentModal({ setModal, clientId }) {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [treatment, setTreatment] = useState({
     clientId: parseInt(clientId),
     date: "",
@@ -27,19 +30,27 @@ export default function NewTreatmentModal({ setModal, clientId }) {
     dateSel: "w-3/5 p-4 rounded-md border border-gray-300",
     description: "h-3/5",
     textarea: "mt-4 w-full h-4/5 p-2 border border-gray-300 rounded-md",
-    send: "my-auto block w-full px-4 py-4 text-xl text-white bg-blue-500 rounded-md hover:bg-blue-600",
+    send: `my-auto block w-full px-4 py-4 text-xl text-white rounded-md ${
+      !error ? "bg-blue-500 hover:bg-blue-600" : "bg-red-500 hover:bg-red-600"
+    }`,
   };
 
   const manageChange = (e) => {
+    setError("");
     setTreatment({ ...treatment, [e.target.name]: e.target.value });
   };
 
   const sendTreatment = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const res = await createTreatment(treatment);
     if (res.status === 200) {
       router.refresh();
       setModal(false);
+      setLoading(false);
+    } else {
+      setError(res.message);
+      setLoading(false);
     }
   };
 
@@ -77,7 +88,7 @@ export default function NewTreatmentModal({ setModal, clientId }) {
             />
           </div>
           <button className={styles.send} type="submit">
-            Crear
+            {loading ? <Loading /> : error ? error : "Crear"}
           </button>
         </form>
       </section>

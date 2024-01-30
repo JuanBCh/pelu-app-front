@@ -6,9 +6,12 @@ import { faArrowLeft, faUserSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Loading from "../Loading/loading";
 
 export default function EditClientModal({ setModal, client }) {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [data, setData] = useState({
     id: client.id,
     name: "",
@@ -30,25 +33,35 @@ export default function EditClientModal({ setModal, client }) {
     subtitle: "text-xl",
     div: "flex justify-between items-center mb-9",
     input: "w-3/5 p-4 rounded-md border border-gray-300 text-end",
-    send: "my-auto block w-full px-4 py-4 text-xl text-white bg-blue-500 rounded-md hover:bg-blue-600",
-    delete: "bg-red-600 hover:bg-red-700 text-white",
+    send: `my-auto block w-full px-4 py-4 text-xl text-white rounded-md ${
+      !error ? "bg-blue-500 hover:bg-blue-600" : "bg-red-500 hover:bg-red-600"
+    }`,
+    delete: `${
+      !error
+        ? "bg-orange-500 hover:bg-orange-600"
+        : "bg-red-500 hover:bg-red-600"
+    } text-white`,
   };
 
   const manageData = (e) => {
+    setError("");
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const sendData = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (!del) {
       const res = await editClient(data);
       if (res.status === 202) {
         router.refresh();
         setModal(false);
+        setLoading(false);
       } else {
-        console.log(res);
+        setError(res.message);
+        setLoading(false);
       }
-    } else {
+    } else if (del) {
       const res = await deleteClient(data.id);
       if (res.status === 200) {
         router.push("/");
@@ -151,7 +164,15 @@ export default function EditClientModal({ setModal, client }) {
             className={`${styles.send} ${del && styles.delete}`}
             type="submit"
           >
-            {!del ? "Aceptar" : "Borrar"}
+            {loading ? (
+              <Loading />
+            ) : error ? (
+              error
+            ) : !del ? (
+              "Aceptar"
+            ) : (
+              "Borrar"
+            )}
           </button>
         </form>
       </section>

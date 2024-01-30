@@ -1,6 +1,10 @@
 export const addClient = async (data) => {
   if (!data.name || !data.lastname) {
-    return "El nombre y apellido son obligatorios";
+    const res = {
+      status: 400,
+      message: "El nombre y apellido son obligatorios",
+    };
+    return res;
   }
 
   const res = await fetch("https://pelu-app-api-alpha.vercel.app/addClient", {
@@ -23,7 +27,11 @@ export const editClient = async (data) => {
     !data.mail &&
     !data.birth
   ) {
-    return "Tienes que editar al menos un campo";
+    const res = {
+      status: 400,
+      message: "Tienes que editar al menos un campo",
+    };
+    return res;
   }
 
   const res = await fetch(
@@ -90,7 +98,11 @@ export const transformToDate = (date) => {
 
 export const createTreatment = async (data) => {
   if (!data.date || !data.description) {
-    return "La fecha y descripción son obligatorios";
+    const res = {
+      status: 400,
+      message: "La fecha y descripción son obligatorios",
+    };
+    return res;
   }
   const res = await fetch(
     "https://pelu-app-api-alpha.vercel.app/addTreatment",

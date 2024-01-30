@@ -1,4 +1,4 @@
-export default function AddClient({ data, setData }) {
+export default function AddClient({ data, setData, setError }) {
   const styles = {
     form: "w-full flex flex-col items-center justify-center my-12",
     simpleInputs:
@@ -8,6 +8,7 @@ export default function AddClient({ data, setData }) {
   };
 
   const handleData = (e) => {
+    if (e.target.name === "name" || e.target.name === "lastname") setError("");
     setData({ ...data, [e.target.name]: e.target.value });
   };
 

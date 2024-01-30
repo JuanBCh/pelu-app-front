@@ -7,7 +7,7 @@ export default function NavLink({ title, path }) {
   const pathName = usePathname();
   const styles = {
     link: "text-3xl font-bold text-white rounded-lg p-2 m-2",
-    active: "text-blue-600 bg-white rounded-lg p-2 m-2",
+    active: "text-blue-700 bg-white rounded-lg p-2 m-2",
   };
   return (
     <Link
