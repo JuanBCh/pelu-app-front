@@ -14,9 +14,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} p-3`}>
+      <body className={`${inter.className} p-3 lg:flex`}>
         <NavBar />
-        <Suspense fallback={<LoadingScreen />}>{children}</Suspense>
+        <div className="lg:w-full lg:h-full lg:mx-28">
+          <Suspense fallback={<LoadingScreen />}>{children}</Suspense>
+        </div>
       </body>
     </html>
   );

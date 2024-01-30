@@ -5,8 +5,8 @@ export default function Home({ searchParams }) {
   const query = searchParams.query || "";
   const currentPage = searchParams.page || 1;
   const styles = {
-    main: "mt-9",
-    h3: "text-4xl font-bold",
+    main: "mt-9 px-4 w-full",
+    h3: "text-4xl lg:text-5xl font-bold",
   };
 
   return (

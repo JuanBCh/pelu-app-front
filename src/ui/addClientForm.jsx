@@ -1,6 +1,6 @@
 export default function AddClient({ data, setData, setError }) {
   const styles = {
-    form: "w-full flex flex-col items-center justify-center my-12",
+    form: "w-full max-w-2xl flex flex-col items-center justify-center my-12",
     simpleInputs:
       "w-11/12 text-2xl border-2 border-slate-500 rounded mb-3 px-2 py-3",
     birth: "flex justify-between items-center w-11/12 text-xl mb-3",

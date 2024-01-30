@@ -30,7 +30,7 @@ export default function Search({ placeholder }) {
     <section className={styles.section}>
       <div className={styles.topDiv}>
         <label htmlFor="search" className={styles.label}>
-          Buscar
+          Buscar cliente:
         </label>
         <CreateClient />
       </div>

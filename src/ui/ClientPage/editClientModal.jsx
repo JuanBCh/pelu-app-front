@@ -48,6 +48,11 @@ export default function EditClientModal({ setModal, client }) {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
+  const manageDelete = () => {
+    setError("");
+    setDel(!del);
+  };
+
   const sendData = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -78,13 +83,13 @@ export default function EditClientModal({ setModal, client }) {
             <FontAwesomeIcon
               icon={faUserSlash}
               className={styles.icons}
-              onClick={() => setDel(!del)}
+              onClick={() => manageDelete()}
             />
           ) : (
             <FontAwesomeIcon
               icon={faArrowLeft}
               className={styles.icons}
-              onClick={() => setDel(!del)}
+              onClick={() => manageDelete()}
             />
           )}
           <FontAwesomeIcon

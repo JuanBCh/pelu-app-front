@@ -6,7 +6,7 @@ export default async function Table({ query, currentPage }) {
     ? await fetchClients(query, currentPage)
     : await fetchClients(null, currentPage);
   const styles = {
-    table: "flex flex-wrap justify-around p-1",
+    table: "grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 p-1",
   };
   return (
     <div className={styles.table}>

@@ -12,16 +12,25 @@ export default function NavMenu() {
       !modal
         ? "text-blue-600 hover:text-blue-700"
         : "text-white hover:text-slate-200"
-    } size-10 hover:cursor-pointer z-30`,
+    } size-10 hover:cursor-pointer z-30 lg:hidden`,
+  };
+  const noModalStyles = {
+    div: "lg:pt-4",
+    background: "hidden lg:flex",
+    modal: "hidden lg:flex lg:flex-col lg:justify-end",
   };
   return (
-    <>
+    <div className={noModalStyles.div}>
       <FontAwesomeIcon
         icon={faBars}
         className={styles.icons}
         onClick={() => setModal(!modal)}
       />
-      {modal && <NavMenuModal setModal={setModal} />}
-    </>
+      {modal ? (
+        <NavMenuModal setModal={setModal} />
+      ) : (
+        <NavMenuModal setModal={setModal} nMS={noModalStyles} />
+      )}
+    </div>
   );
 }

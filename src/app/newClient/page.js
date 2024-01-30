@@ -18,8 +18,9 @@ export default function NewClientPage() {
     birth: "",
   });
   const styles = {
-    main: "flex flex-col items-center justify-center",
-    title: "mt-16 text-center text-3xl font-bold",
+    topDiv: "w-full h-full flex justify-center items-center mt-16 lg:mt-32",
+    main: "flex flex-col items-center justify-center w-full max-w-2xl lg:shadow-lg lg:rounded-lg lg:px-8 lg:py-12",
+    title: "text-center text-3xl font-bold",
     button: `my-auto block w-11/12 px-4 py-4 text-4xl text-white rounded-md ${
       !error ? "bg-blue-500 hover:bg-blue-600" : "bg-red-500 hover:bg-red-600"
     }`,
@@ -30,7 +31,6 @@ export default function NewClientPage() {
     e.preventDefault();
     const res = await addClient(data);
     if (res.status === 201) {
-      alert("Cliente creado con éxito");
       setLoading(false);
       router.push("/");
       router.refresh();
@@ -41,12 +41,14 @@ export default function NewClientPage() {
   };
 
   return (
-    <main className={styles.main}>
-      <h2 className={styles.title}>Completa los datos del nuevo cliente</h2>
-      <AddClient data={data} setData={setData} setError={setError} />
-      <button className={styles.button} onClick={(e) => sendClient(e)}>
-        {loading ? <Loading /> : error ? error : "Crear"}
-      </button>
-    </main>
+    <div className={styles.topDiv}>
+      <main className={styles.main}>
+        <h2 className={styles.title}>Completa los datos del nuevo cliente</h2>
+        <AddClient data={data} setData={setData} setError={setError} />
+        <button className={styles.button} onClick={(e) => sendClient(e)}>
+          {loading ? <Loading /> : error ? error : "Crear"}
+        </button>
+      </main>
+    </div>
   );
 }
