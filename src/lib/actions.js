@@ -133,3 +133,58 @@ export const deleteTreatment = async (id) => {
 
   return res;
 };
+
+export const login = async (data) => {
+  if (!data.ci || !data.password) {
+    const res = {
+      status: 400,
+      json: {
+        message: "La cedula y contraseña son obligatorios",
+      },
+    };
+    return res;
+  }
+
+  const res = await fetch("http://localhost:8080/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      accept: "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  const response = {
+    status: res.status,
+    json: await res.json(),
+  };
+  return response;
+};
+
+export const changePassword = async (newPass) => {
+  if (newPass.length < 8) {
+    const res = {
+      status: 400,
+      json: {
+        message: "Debe ingresar una contraseña de al menos 8 caracteres",
+      },
+    };
+    return res;
+  }
+  const res = await fetch("http://localhost:8080/changePassword", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      accept: "application/json",
+      auth_token: localStorage.getItem("auth_token"),
+    },
+    body: JSON.stringify({
+      newPass: newPass,
+    }),
+  });
+
+  const response = {
+    status: res.status,
+    json: await res.json(),
+  };
+  return response;
+};

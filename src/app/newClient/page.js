@@ -5,6 +5,7 @@ import { addClient } from "@/lib/actions";
 import AddClient from "@/ui/addClientForm";
 import { useRouter } from "next/navigation";
 import Loading from "@/ui/Loading/loading";
+import { LagreBlueBTN } from "@/ui/buttons";
 
 export default function NewClientPage() {
   const router = useRouter();
@@ -21,9 +22,6 @@ export default function NewClientPage() {
     topDiv: "w-full h-full flex justify-center items-center mt-16 lg:mt-32",
     main: "flex flex-col items-center justify-center w-full max-w-2xl lg:shadow-lg lg:rounded-lg lg:px-8 lg:py-12",
     title: "text-center text-3xl font-bold",
-    button: `my-auto block w-11/12 px-4 py-4 text-4xl text-white rounded-md ${
-      !error ? "bg-blue-500 hover:bg-blue-600" : "bg-red-500 hover:bg-red-600"
-    }`,
   };
 
   const sendClient = async (e) => {
@@ -45,9 +43,11 @@ export default function NewClientPage() {
       <main className={styles.main}>
         <h2 className={styles.title}>Completa los datos del nuevo cliente</h2>
         <AddClient data={data} setData={setData} setError={setError} />
-        <button className={styles.button} onClick={(e) => sendClient(e)}>
-          {loading ? <Loading /> : error ? error : "Crear"}
-        </button>
+        <LagreBlueBTN
+          text={loading ? <Loading /> : error ? error : "Crear"}
+          onClick={(e) => sendClient(e)}
+          color={error ? "red" : "blue"}
+        />
       </main>
     </div>
   );

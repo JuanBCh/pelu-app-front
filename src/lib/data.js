@@ -7,6 +7,10 @@ export const navData = [
     title: "Nuevo Cliente",
     path: "/newClient",
   },
+  {
+    title: "Iniciar Sesion",
+    path: "/login",
+  },
 ];
 
 export async function fetchClients(query, currentPage) {

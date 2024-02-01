@@ -8,7 +8,7 @@ import EditClientModal from "./editClientModal";
 export default function EditClient({ client }) {
   const [modal, setModal] = useState(false);
   const styles = {
-    edit: "size-12 text-blue-500 hover:text-blue-600 hover:cursor-pointer",
+    edit: "size-12 text-blue-500 hover:text-blue-600 transition-all duration-300 ease-in-out hover:cursor-pointer",
   };
 
   useEffect(() => {
