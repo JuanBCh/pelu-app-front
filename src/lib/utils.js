@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export const transformToBirthDate = (date) => {
   if (!date) return;
   const monthsToSpanish = {
@@ -28,4 +30,14 @@ export const transformToDate = (date) => {
   const year = date.split("-")[0];
 
   return day + "/" + month + "/" + year;
+};
+
+export const createTreatmentSchema = () => {
+  const schema = z.object({
+    clientId: z.coerce.number(),
+    date: z.string(),
+    description: z.string(),
+  });
+
+  return schema;
 };

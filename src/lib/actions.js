@@ -1,4 +1,10 @@
+"use server";
+
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 //CLIENT ACTIONS
+
+import { createTreatmentSchema, transformURL } from "./utils";
 
 export const addClient = async (data) => {
   if (!data.name || !data.lastname) {
@@ -68,27 +74,41 @@ export const deleteClient = async (id) => {
 
 //TREATMENT ACTIONS
 
-export const createTreatment = async (data) => {
-  if (!data.date || !data.description) {
-    const res = {
-      status: 400,
-      message: "La fecha y descripción son obligatorios",
-    };
-    return res;
-  }
-  const res = await fetch(
-    "https://pelu-app-api-alpha.vercel.app/addTreatment",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        accept: "application/json",
-      },
-      body: JSON.stringify(data),
-    }
-  );
+export const createTreatment = async (FormData) => {
+  const treatment = createTreatmentSchema();
 
-  return res;
+  const { clientId, date, description } = treatment.parse({
+    clientId: FormData.get("clientId"),
+    date: FormData.get("date"),
+    description: FormData.get("description"),
+  });
+
+  const data = {
+    clientId: clientId,
+    date: date,
+    description: description,
+  };
+
+  if (!data.date || !data.description) {
+    return;
+  } else {
+    const res = await fetch(
+      "https://pelu-app-api-alpha.vercel.app/addTreatment",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    if (res.status === 200) {
+      revalidatePath("/client/" + clientId);
+      redirect("/client/" + clientId);
+    }
+  }
+  return;
 };
 
 export const deleteTreatment = async (id) => {

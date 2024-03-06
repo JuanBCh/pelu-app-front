@@ -9,13 +9,7 @@ import Loading from "../Loading/loading";
 
 export default function NewTreatmentModal({ setModal, clientId }) {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [treatment, setTreatment] = useState({
-    clientId: parseInt(clientId),
-    date: "",
-    description: "",
-  });
   const styles = {
     background:
       "flex items-center w-screen h-screen bg-blue-500/50 absolute top-0 left-0 z-10",
@@ -35,23 +29,9 @@ export default function NewTreatmentModal({ setModal, clientId }) {
     }`,
   };
 
-  const manageChange = (e) => {
-    setError("");
-    setTreatment({ ...treatment, [e.target.name]: e.target.value });
-  };
-
   const sendTreatment = async (e) => {
-    setLoading(true);
     e.preventDefault();
-    const res = await createTreatment(treatment);
-    if (res.status === 200) {
-      router.refresh();
-      setModal(false);
-      setLoading(false);
-    } else {
-      setError(res.message);
-      setLoading(false);
-    }
+    setError("Complete los datos");
   };
 
   return (
@@ -63,17 +43,21 @@ export default function NewTreatmentModal({ setModal, clientId }) {
           onClick={() => setModal(false)}
         />
         <h2 className={styles.title}>Crear Tratamiento</h2>
-        <form className={styles.form} onSubmit={(e) => sendTreatment(e)}>
+        <form
+          className={styles.form}
+          onSubmit={(e) => sendTreatment(e)}
+          action={createTreatment}
+        >
+          <input type="hidden" name="clientId" value={clientId} />
           <div className={styles.date}>
             <label className={styles.subtitle} htmlFor="date">
               Fecha:
             </label>
             <input
-              className={styles.dateSel}
-              onChange={(e) => manageChange(e)}
-              value={treatment.date}
-              type="date"
               name="date"
+              type="date"
+              className={styles.dateSel}
+              onChange={() => setError("")}
             />
           </div>
           <div className={styles.description}>
@@ -81,10 +65,9 @@ export default function NewTreatmentModal({ setModal, clientId }) {
               Descripción:
             </label>
             <textarea
-              className={styles.textarea}
-              onChange={(e) => manageChange(e)}
-              value={treatment.description}
               name="description"
+              className={styles.textarea}
+              onChange={() => setError("")}
             />
           </div>
           <button className={styles.send} type="submit">
