@@ -22,6 +22,11 @@ export default function NewTreatment({ clientId }) {
 
   return (
     <>
+      <LagreBlueBTN
+        text={"Nuevo Tratamiento"}
+        className={styles.newTreatment}
+        onClick={() => setModal(true)}
+      ></LagreBlueBTN>
       {modal && <NewTreatmentModal setModal={setModal} clientId={clientId} />}
     </>
   );

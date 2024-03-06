@@ -1,4 +1,4 @@
-import { transformToBirthDate } from "@/lib/actions";
+import { transformToBirthDate } from "@/lib/utils";
 
 export default function ClientData({ client }) {
   const birthdate = transformToBirthDate(client.birth);

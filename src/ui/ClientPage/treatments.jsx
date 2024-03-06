@@ -1,4 +1,4 @@
-import { transformToDate } from "@/lib/actions";
+import { transformToDate } from "@/lib/utils";
 import { fetchTreatments } from "@/lib/data";
 import DeleteTreatment from "./deleteTreatment";
 

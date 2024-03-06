@@ -4,7 +4,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DeleteTreatmentModal from "./deleteTreatmentModal";
 import { useEffect, useState } from "react";
-import { transformToDate } from "@/lib/actions";
+import { transformToDate } from "@/lib/utils";
 
 export default function DeleteTreatment({ treatmentId, date }) {
   const [modal, setModal] = useState(false);
