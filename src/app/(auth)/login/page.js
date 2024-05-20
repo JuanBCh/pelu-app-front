@@ -1,5 +1,5 @@
 import { login, logout } from "@/lib/actions";
-import { auth, signOut } from "@/lib/auth";
+import { auth, signOut } from "@/lib/auth.js";
 
 export default async function Login() {
   const styles = {
