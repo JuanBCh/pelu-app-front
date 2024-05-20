@@ -9,17 +9,7 @@ import { useState } from "react";
 import Loading from "../Loading/loading";
 
 export default function EditClientModal({ setModal, client }) {
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [data, setData] = useState({
-    id: client.id,
-    name: "",
-    lastname: "",
-    phone: "",
-    mail: "",
-    birth: "",
-  });
   const [del, setDel] = useState(false);
   const styles = {
     background:
@@ -43,38 +33,11 @@ export default function EditClientModal({ setModal, client }) {
     } text-white`,
   };
 
-  const manageData = (e) => {
-    setError("");
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
-
   const manageDelete = () => {
     setError("");
     setDel(!del);
   };
 
-  const sendData = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    if (!del) {
-      const res = await editClient(data);
-      if (res.status === 202) {
-        router.refresh();
-        setModal(false);
-        setLoading(false);
-      } else {
-        setError(res.message);
-        setLoading(false);
-      }
-    } else if (del) {
-      const res = await deleteClient(data.id);
-      if (res.status === 200) {
-        router.push("/");
-      } else {
-        console.log(res);
-      }
-    }
-  };
   return (
     <main className={styles.background}>
       <section className={styles.modal}>
@@ -99,68 +62,68 @@ export default function EditClientModal({ setModal, client }) {
           />
         </div>
         <h2 className={styles.title}>Editar perfil de {client.name}</h2>
-        <form className={styles.form} onSubmit={(e) => sendData(e)}>
-          <div className={styles.div}>
+        <form
+          className={styles.form}
+          action={editClient}
+          onSubmit={() => {
+            if (del) {
+              deleteClient(client.id);
+            }
+            setModal(false);
+          }}
+        >
+          <input type="hidden" name="id" value={client.id} />
+          <div name="name" className={styles.div}>
             <label className={styles.subtitle} htmlFor="name">
               Nombre:
             </label>
             <input
               className={styles.input}
               placeholder={client.name}
-              onChange={(e) => manageData(e)}
-              value={data.name}
               type="text"
               name="name"
             />
           </div>
-          <div className={styles.div}>
+          <div name="lastname" className={styles.div}>
             <label className={styles.subtitle} htmlFor="lastname">
               Apellido:
             </label>
             <input
               className={styles.input}
               placeholder={client.lastname}
-              onChange={(e) => manageData(e)}
-              value={data.lastname}
               type="text"
               name="lastname"
             />
           </div>
-          <div className={styles.div}>
+          <div name="phone" className={styles.div}>
             <label className={styles.subtitle} htmlFor="phone">
               Telefono:
             </label>
             <input
               className={styles.input}
               placeholder={client.phone}
-              onChange={(e) => manageData(e)}
-              value={data.phone}
               type="number"
               name="phone"
             />
           </div>
-          <div className={styles.div}>
+          <div name="mail" className={styles.div}>
             <label className={styles.subtitle} htmlFor="mail">
               Mail:
             </label>
             <input
               className={styles.input}
               placeholder={client.mail}
-              onChange={(e) => manageData(e)}
-              value={data.mail}
               type="email"
               name="mail"
             />
           </div>
-          <div className={styles.div}>
+          <div name="birth" className={styles.div}>
             <label className={styles.subtitle} htmlFor="birth">
               Nacimiento:
             </label>
             <input
               className={styles.input}
               placeholder={client.birth}
-              onChange={(e) => manageData(e)}
-              value={data.birth}
               type="date"
               name="birth"
             />
@@ -169,15 +132,7 @@ export default function EditClientModal({ setModal, client }) {
             className={`${styles.send} ${del && styles.delete}`}
             type="submit"
           >
-            {loading ? (
-              <Loading />
-            ) : error ? (
-              error
-            ) : !del ? (
-              "Aceptar"
-            ) : (
-              "Borrar"
-            )}
+            {error ? error : !del ? "Aceptar" : "Borrar"}
           </button>
         </form>
       </section>

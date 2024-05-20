@@ -6,7 +6,7 @@ import DeleteTreatmentModal from "./deleteTreatmentModal";
 import { useEffect, useState } from "react";
 import { transformToDate } from "@/lib/utils";
 
-export default function DeleteTreatment({ treatmentId, date }) {
+export default function DeleteTreatment({ treatmentId, date, clientId }) {
   const [modal, setModal] = useState(false);
   const styles = {
     delete: "text-red-600 size-7",
@@ -33,6 +33,7 @@ export default function DeleteTreatment({ treatmentId, date }) {
           treatmentId={treatmentId}
           date={transformToDate(date)}
           setModal={setModal}
+          clientId={clientId}
         />
       )}
     </div>

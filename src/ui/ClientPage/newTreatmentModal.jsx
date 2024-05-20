@@ -29,11 +29,6 @@ export default function NewTreatmentModal({ setModal, clientId }) {
     }`,
   };
 
-  const sendTreatment = async (e) => {
-    e.preventDefault();
-    setError("Complete los datos");
-  };
-
   return (
     <main className={styles.background}>
       <section className={styles.modal}>
@@ -45,11 +40,11 @@ export default function NewTreatmentModal({ setModal, clientId }) {
         <h2 className={styles.title}>Crear Tratamiento</h2>
         <form
           className={styles.form}
-          onSubmit={(e) => sendTreatment(e)}
           action={createTreatment}
+          onSubmit={() => setModal(false)}
         >
           <input type="hidden" name="clientId" value={clientId} />
-          <div className={styles.date}>
+          <div name="date" className={styles.date}>
             <label className={styles.subtitle} htmlFor="date">
               Fecha:
             </label>
@@ -60,7 +55,7 @@ export default function NewTreatmentModal({ setModal, clientId }) {
               onChange={() => setError("")}
             />
           </div>
-          <div className={styles.description}>
+          <div name="description" className={styles.description}>
             <label className={styles.subtitle} htmlFor="description">
               Descripción:
             </label>
@@ -71,7 +66,7 @@ export default function NewTreatmentModal({ setModal, clientId }) {
             />
           </div>
           <button className={styles.send} type="submit">
-            {loading ? <Loading /> : error ? error : "Crear"}
+            "Crear"
           </button>
         </form>
       </section>

@@ -1,7 +1,7 @@
 import Search from "@/ui/search";
 import Table from "@/ui/table";
 
-export default function Home({ searchParams }) {
+export default async function Home({ searchParams }) {
   const query = searchParams.query || "";
   const currentPage = searchParams.page || 1;
   const styles = {

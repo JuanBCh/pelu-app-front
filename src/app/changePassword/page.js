@@ -1,14 +1,9 @@
 "use client";
 
 import { changePassword } from "@/lib/actions";
-import Loading from "@/ui/Loading/loading";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function ChangePassword() {
-  const router = useRouter();
-  const [newPassword, setNewPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const styles = {
     main: "flex justify-center items-center h-full w-full",
@@ -27,29 +22,11 @@ export default function ChangePassword() {
     }-600 transition-all duration-300 ease-in-out`,
   };
 
-  const manageForm = (e) => {
-    setError("");
-    setNewPassword(e.target.value);
-  };
-
-  const sendData = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    const res = await changePassword(newPassword);
-    if (res.status === 202) {
-      setLoading(false);
-      router.push("/");
-    } else {
-      setLoading(false);
-      setError(res.json.message);
-    }
-  };
-
   return (
     <main className={styles.main}>
       <section className={styles.section}>
-        <form className={styles.form} onSubmit={(e) => sendData(e)}>
-          <div className={styles.subsection}>
+        <form className={styles.form} action={changePassword}>
+          <div name="password" className={styles.subsection}>
             <label htmlFor="password" className={styles.subtitle}>
               Nueva Contraseña
             </label>
@@ -58,12 +35,21 @@ export default function ChangePassword() {
               name="password"
               placeholder="********"
               className={styles.input}
-              onChange={(e) => manageForm(e)}
-              value={newPassword}
+            />
+          </div>
+          <div name="rePassword" className={styles.subsection}>
+            <label htmlFor="password" className={styles.subtitle}>
+              Repetir Contraseña
+            </label>
+            <input
+              type="password"
+              name="rePassword"
+              placeholder="********"
+              className={styles.input}
             />
           </div>
           <button type="submit" className={styles.submit}>
-            {loading ? <Loading /> : error ? error : "Cambiar"}
+            {error ? error : "Cambiar"}
           </button>
         </form>
       </section>
