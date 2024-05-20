@@ -1,1 +1,1 @@
-export { GET, POST } from "@lib/auth.js";
+export { GET, POST } from "@lib/auth";
