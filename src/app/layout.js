@@ -4,7 +4,7 @@ import NavBar from "@/ui/NavBar/navBar";
 import { Suspense } from "react";
 import LoadingScreen from "@/ui/Loading/loadingScreen";
 import Loading from "@/ui/Loading/loading";
-import { auth } from "@/lib/auth";
+import { auth } from "@/lib/auth.js";
 
 const inter = Inter({ subsets: ["latin"] });
 
