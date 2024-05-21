@@ -1,16 +1,17 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect, useRouter } from "next/navigation";
-import { createTreatmentSchema, transformURL } from "./utils";
+import { redirect } from "next/navigation";
+import { createTreatmentSchema } from "./utils";
 import pool from "@/utils/postgres";
 import { auth, signIn, signOut } from "./auth";
 import bcrypt from "bcrypt";
+import { cache } from "react";
 const saltRounds = 10;
 
 //CLIENT ACTIONS
 
-export const fetchClients = async (query, currentPage) => {
+export const fetchClients = cache(async (query, currentPage) => {
   const itemsPerPage = 10;
   const offset = (currentPage - 1) * itemsPerPage;
 
@@ -35,9 +36,9 @@ export const fetchClients = async (query, currentPage) => {
     console.log("Error fetching data", err);
     throw err;
   }
-};
+});
 
-export const fetchOneClient = async (id) => {
+export const fetchOneClient = cache(async (id) => {
   try {
     const db = await pool.connect();
     const client = await db.query("SELECT * FROM users WHERE id = $1", [id]);
@@ -47,7 +48,7 @@ export const fetchOneClient = async (id) => {
     console.log("Error fetching data", err);
     throw err;
   }
-};
+});
 
 export const addClient = async (formData) => {
   let { name, lastname, phone, mail, birth } = Object.fromEntries(formData);
@@ -132,7 +133,7 @@ export const deleteClient = async (id) => {
 
 //TREATMENT ACTIONS
 
-export const fetchTreatments = async (id) => {
+export const fetchTreatments = cache(async (id) => {
   try {
     const db = await pool.connect();
     const res = await db.query(
@@ -147,7 +148,7 @@ export const fetchTreatments = async (id) => {
     console.log("Error fetching data", err);
     throw err;
   }
-};
+});
 
 export const createTreatment = async (formData) => {
   const treatment = createTreatmentSchema();
