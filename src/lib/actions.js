@@ -50,7 +50,7 @@ export const fetchOneClient = cache(async (id) => {
   }
 });
 
-export const addClient = async (formData) => {
+export const addClient = cache(async (formData) => {
   let { name, lastname, phone, mail, birth } = Object.fromEntries(formData);
   if (birth === "") {
     birth = null;
@@ -71,9 +71,9 @@ export const addClient = async (formData) => {
     console.log(err);
     throw err;
   }
-};
+});
 
-export const editClient = async (formData) => {
+export const editClient = cache(async (formData) => {
   let { id, name, lastname, phone, mail, birth } = Object.fromEntries(formData);
 
   if (birth === "") {
@@ -118,9 +118,9 @@ export const editClient = async (formData) => {
 
   revalidatePath(`/client/${id}`);
   redirect(`/client/${id}`);
-};
+});
 
-export const deleteClient = async (id) => {
+export const deleteClient = cache(async (id) => {
   const db = await pool.connect();
   const res = await db.query("DELETE FROM users WHERE id = $1", [id]);
   db.release();
@@ -129,7 +129,7 @@ export const deleteClient = async (id) => {
     revalidatePath("/");
     redirect("/");
   } else return;
-};
+});
 
 //TREATMENT ACTIONS
 
@@ -150,7 +150,7 @@ export const fetchTreatments = cache(async (id) => {
   }
 });
 
-export const createTreatment = async (formData) => {
+export const createTreatment = cache(async (formData) => {
   const treatment = createTreatmentSchema();
 
   const { clientId, date, description } = treatment.parse({
@@ -173,9 +173,9 @@ export const createTreatment = async (formData) => {
     revalidatePath(`/client/${clientId}`);
     redirect(`/client/${clientId}`);
   } else return;
-};
+});
 
-export const deleteTreatment = async (id, clientId) => {
+export const deleteTreatment = cache(async (id, clientId) => {
   const db = await pool.connect();
   const res = await db.query("DELETE FROM treatments WHERE id = $1", [id]);
   db.release();
@@ -183,23 +183,23 @@ export const deleteTreatment = async (id, clientId) => {
     revalidatePath(`/client/${clientId}`);
     redirect(`/client/${clientId}`);
   } else return;
-};
+});
 
 //USER ACTIONS
 
-export const login = async (formData) => {
+export const login = cache(async (formData) => {
   "use server";
   const { user_name, password } = Object.fromEntries(formData);
 
   await signIn("credentials", { user_name, password });
-};
+});
 
-export const logout = async () => {
+export const logout = cache(async () => {
   "use server";
   await signOut();
-};
+});
 
-export const changePassword = async (formData) => {
+export const changePassword = cache(async (formData) => {
   const { password, rePassword } = Object.fromEntries(formData);
   if (password !== rePassword) return "Las contraseñas no coinciden";
   if (password.length < 8) {
@@ -224,4 +224,4 @@ export const changePassword = async (formData) => {
   db.release();
   revalidatePath("/");
   redirect("/");
-};
+});
