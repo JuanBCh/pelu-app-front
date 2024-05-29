@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import pool from "@/utils/postgres";
-import credentials from "next-auth/providers/credentials";
 const bcrypt = require("bcrypt");
 
 const login = async (credentials) => {
