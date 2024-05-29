@@ -14,12 +14,12 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const session = await auth();
+  // const session = await auth();
   return (
     <html lang="en">
       <body className={`${inter.className} p-3 lg:flex`}>
         <Suspense fallback={<Loading />}>
-          <NavBar session={session} />
+          {/* <NavBar session={session} /> */}
         </Suspense>
         <div className="lg:w-full lg:h-full lg:mx-28">
           <Suspense fallback={<LoadingScreen />}>{children}</Suspense>
