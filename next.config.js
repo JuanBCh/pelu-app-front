@@ -7,11 +7,11 @@ const nextConfig = {
   //   config.resolve.fallback = { fs: false, dns: false, net: false, tls: false };
   //   return config;
   // },
-  output: "standalone",
-  webpack: (config, { isServer }) => {
-    config.resolve.alias["@"] = path.join(__dirname, "src");
-    return config;
-  },
+  // output: "standalone",
+  // webpack: (config, { isServer }) => {
+  //   config.resolve.alias["@"] = path.join(__dirname, "src");
+  //   return config;
+  // },
 };
 
 module.exports = nextConfig;

@@ -13,7 +13,7 @@ export default async function Home({ searchParams }) {
     <main className={styles.main}>
       <h3 className={styles.h3}>Clientes</h3>
       <Search placeholder="Buscar..." />
-      {/* <Table query={query} currentPage={currentPage} /> */}
+      <Table query={query} currentPage={currentPage} />
     </main>
   );
 }
