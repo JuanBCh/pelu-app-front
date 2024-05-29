@@ -12,6 +12,12 @@ const nextConfig = {
   //   config.resolve.alias["@"] = path.join(__dirname, "src");
   //   return config;
   // },
+  serverRuntimeConfig: {
+    apiUrl: process.env.NEXT_SERVER_API_URL,
+  },
+  publicRuntimeConfig: {
+    apiUrl: process.env.NEXT_PUBLIC_API_URL,
+  },
 };
 
 module.exports = nextConfig;
