@@ -1,8 +1,4 @@
-import { addClient } from "@/lib/actions";
 import AddClient from "@/ui/addClientForm";
-import { useRouter } from "next/navigation";
-import Loading from "@/ui/Loading/loading";
-import { LagreBlueBTN } from "@/ui/buttons";
 
 export default function NewClientPage() {
   const styles = {
