@@ -14,7 +14,7 @@ export function CreateClient() {
   );
 }
 
-export function LagreBlueBTN({ text, onClick, color, type }) {
+export function LagreBlueBTN({ text, color, type }) {
   const styles = `block w-full px-4 py-4 text-xl mt-9 text-white bg-${
     color ? color : "blue"
   }-500 rounded-md hover:bg-${
@@ -22,7 +22,7 @@ export function LagreBlueBTN({ text, onClick, color, type }) {
   }-600 transition-all duration-300 ease-in-out`;
 
   return (
-    <button type={type} className={styles} onClick={(e) => onClick(e)}>
+    <button type={type} className={styles}>
       {text}
     </button>
   );

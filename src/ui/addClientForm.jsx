@@ -42,7 +42,7 @@ export default function AddClient() {
         </label>
         <input name="birth" type="date" className={styles.date} />
       </div>
-      <button>Crear</button>
+      <LagreBlueBTN text="Crear" />
     </form>
   );
 }

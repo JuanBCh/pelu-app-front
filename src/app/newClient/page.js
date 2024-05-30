@@ -12,11 +12,6 @@ export default function NewClientPage() {
       <main className={styles.main}>
         <h2 className={styles.title}>Completa los datos del nuevo cliente</h2>
         <AddClient />
-        {/* <LagreBlueBTN
-          text={loading ? <Loading /> : error ? error : "Crear"}
-          onClick={(e) => sendClient(e)}
-          color={error ? "red" : "blue"}
-        /> */}
       </main>
     </div>
   );
