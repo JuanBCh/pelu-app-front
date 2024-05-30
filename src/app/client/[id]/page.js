@@ -1,4 +1,4 @@
-import { fetchOneClient } from "@/lib/data";
+import { fetchOneClient } from "@/lib/actions";
 import ClientData from "@/ui/ClientPage/data";
 import EditClient from "@/ui/ClientPage/editClient";
 import NewTreatment from "@/ui/ClientPage/newTreatmten";

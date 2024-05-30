@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 import NavMenu from "./navMenu";
 
-export default function NavBar() {
+export default function NavBar({ session }) {
   const router = useRouter();
   const styles = {
     section:
@@ -20,7 +20,7 @@ export default function NavBar() {
         className={styles.icons}
         onClick={() => router.push("/")}
       />
-      <NavMenu />
+      <NavMenu session={session} />
     </nav>
   );
 }

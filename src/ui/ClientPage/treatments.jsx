@@ -1,5 +1,5 @@
 import { transformToDate } from "@/lib/utils";
-import { fetchTreatments } from "@/lib/data";
+import { fetchTreatments } from "@/lib/actions";
 import DeleteTreatment from "./deleteTreatment";
 
 export default async function ClientTreatments({ clientId }) {
@@ -17,7 +17,11 @@ export default async function ClientTreatments({ clientId }) {
         return (
           <div key={k} className={styles.treatment}>
             <div className={styles.firstLine}>
-              <DeleteTreatment treatmentId={t.id} date={t.date} />
+              <DeleteTreatment
+                treatmentId={t.id}
+                clientId={clientId}
+                date={t.date}
+              />
               <h3 className={styles.date}>{transformToDate(t.date)}</h3>
             </div>
             <p className={styles.description}>{t.treatment}</p>

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import NavMenuModal from "./navMenuModal";
 
-export default function NavMenu() {
+export default function NavMenu({ session }) {
   const [modal, setModal] = useState(false);
   const styles = {
     icons: `font-bold ${
@@ -27,9 +27,13 @@ export default function NavMenu() {
         onClick={() => setModal(!modal)}
       />
       {modal ? (
-        <NavMenuModal setModal={setModal} />
+        <NavMenuModal session={session} setModal={setModal} />
       ) : (
-        <NavMenuModal setModal={setModal} nMS={noModalStyles} />
+        <NavMenuModal
+          session={session}
+          setModal={setModal}
+          nMS={noModalStyles}
+        />
       )}
     </div>
   );

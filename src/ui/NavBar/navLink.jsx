@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function NavLink({ title, path }) {
+export default function NavLink({ title, path, session }) {
   const pathName = usePathname();
   const styles = {
     link: "text-3xl lg:text-xl xl:text-2xl font-bold text-white rounded-lg p-2 m-2 lg:-mx-2",
@@ -14,7 +14,7 @@ export default function NavLink({ title, path }) {
       href={path}
       className={`${styles.link} ${pathName === path && styles.active}`}
     >
-      {title}
+      {path === "/login" ? (session ? "Cerrar Sesion" : title) : title}
     </Link>
   );
 }
